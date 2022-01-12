@@ -1,0 +1,44 @@
+{% extends "./base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<form id="reg_form" method="POST" action="/register/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal text-center">Register Here</h1>
+    <div class="form-group">
+        <label for="id_{{ user_form.username.name }}">Username</label>
+        <input type="text" id="id_{{ user_form.username.name }}" name="{{ user_form.username.name }}"
+            class="form-control" placeholder="Enter username" value="{{ user_form.username.value|default:'' }}"
+            minlength="3" maxlength="50" required>
+    </div>
+    <div class="form-group">
+        <label for="id_{{ user_form.email.name }}">Email</label>
+        <input type="email" id="id_{{ user_form.email.name }}" name="{{ user_form.email.name }}" class="form-control"
+            placeholder="Enter email" value="{{ user_form.email.value|default:'' }}" required>
+    </div>
+    <div class="form-group">
+        <label for="id_{{ user_form.password.name }}">Password</label>
+        <input type="password" id="id_{{ user_form.password.name }}" name="{{ user_form.password.name }}"
+            class="form-control" placeholder="Enter password" value="{{ user_form.password.value|default:'' }}"
+            minlength="3" maxlength="50" required>
+    </div>
+    <div class="form-group">
+        <label for="id_{{ user_form.password2.name }}">Password confirmation</label>
+        <input type="password" id="id_{{ user_form.password2.name }}" name="{{ user_form.password2.name }}"
+            class="form-control" placeholder="Repeat password" value="{{ user_form.password2.value|default:'' }}"
+            minlength="3" maxlength="50" required>
+    </div>
+    <div class="text-center">
+        <small class="form-text text-muted my-1">Alreardy registered? <a href="/login">Login</a> </small>
+        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+        <div class="text-danger mt-2">
+            {% for field, errors in user_form.errors.items %}
+            {% for error in errors %}
+            <div>{{error}}</div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "./base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<form id="complete_reg_form" method="POST" action="/register-complete/" enctype="multipart/form-data">
+    <h1 class="h3 mb-3 font-weight-normal text-center">Please tell us about yourself</h1>
+
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-6">
+            <img id="img_preview" src="../static/img/avatar-placeholder.jpg" alt="image preview" />
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="id_{{ user_form.profile_picture.name }}">Profile picture</label>
+                <input type="file" id="id_{{ user_form.profile_picture.name }}"
+                    name="{{ user_form.profile_picture.name }}" class="form-control" required>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="id_{{ user_form.first_name.name }}">First name</label>
+                    <input type="text" id="id_{{ user_form.first_name.name }}" name="{{ user_form.first_name.name }}"
+                        class="form-control" placeholder="Enter first name"
+                        value="{{ user_form.first_name.value|default:'' }}" minlength="3" maxlength="50" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="id_{{ user_form.last_name.name }}">Last name</label>
+                    <input type="text" id="id_{{ user_form.last_name.name }}" name="{{ user_form.last_name.name }}"
+                        class="form-control" placeholder="Enter last name"
+                        value="{{ user_form.last_name.value|default:'' }}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_{{ user_form.interests.name }}">Interests</label>
+                <input type="textarea" id="id_{{ user_form.interests.name }}" name="{{ user_form.interests.name }}"
+                    class="form-control" placeholder="Enter interests"
+                    value="{{ user_form.interests.value|default:'' }}" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Complete registration</button>
+                <div class="text-danger mt-2">
+                    {% for field, errors in user_form.errors.items %}
+                    <div>{{field}}</div>
+                    {% for error in errors %}
+                    <div>{{error}}</div>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.querySelector('input[type="file"]').addEventListener("change", e => {
+        const [file] = e.target.files
+        if (file) {
+            img_preview.src = URL.createObjectURL(file)
+        }
+    })
+</script>
+
+{% endblock %}

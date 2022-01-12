@@ -1,0 +1,10 @@
+{% extends "./shared/base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+{{ user_name|json_script:"id_user_name" }}
+<!-- React.js UserApp component -->
+<div id="root-user-app"></div>
+
+{% endblock %}

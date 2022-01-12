@@ -1,0 +1,10 @@
+#login_form,
+#reg_form {
+  margin: 0 auto;
+  max-width: 400px;
+  margin-top: 2rem;
+}
+
+#img_preview {
+  max-width: inherit;
+}

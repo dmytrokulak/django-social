@@ -1,0 +1,37 @@
+{% include "./shared/header.html" %}
+{% load bootstrap4 %}
+
+<div class="container">
+    <input type="hidden" id="id_csrf_token" value="{{ csrf_token }}">
+    <div class="row">
+        <div class="col-lg-9">
+            <textarea id="chat-log" cols="100" rows="20" readonly></textarea><br>
+            <input id="chat-message-input" type="text" size="98" disabled><br>
+            <input id="chat-message-submit" type="button" value="Send" disabled>
+            <span id="chat-message-info">Waiting for the other party to join...</span>
+        </div>
+        <div class="col-lg-3">
+            <h5>Add participants</h5>
+            <div id="id_friends_pane" class="row">
+                {% for friend in user_friends %}
+                <div class="m-1">
+                    <img src="/{{ friend.profile_picture_path }}" alt="" style='height:2rem'>
+                    <span>{{ friend.full_name }}</span>
+                    <button class="btn btn-primary btn-user-friend-add" data-user-id='{{ friend.user_id }}'>Add</button>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{{ room_name|json_script:"room-name" }}
+{{ user_me|json_script:"user_me" }}
+{{ multi_chat|json_script:"multi_chat" }}
+{{ chat_id|json_script:"chat_id" }}
+{{ chat_log_value|json_script:"chat_log_value" }}
+<script src="/static/js/chat.js">
+</script>
+
+{% include "./shared/footer.html" %}

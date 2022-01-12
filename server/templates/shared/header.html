@@ -1,0 +1,30 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Social media website">
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+    integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+  <link href="/static/css/main.84d89110.chunk.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+</head>
+
+<body>
+  {% if user.is_authenticated and not hide_nav %}
+  <div class="row my-2">
+    <div class="col-sm-2 offset-sm-1  offset-lg-2">
+      <a href="/">Home</a>
+      <a href="/search">Search</a>
+    </div>
+    <div class="col-sm-2 offset-sm-5">
+      You are logged in as <span class="font-weight-bold">{{ user.username }}</span>
+    </div>
+    <div class="col-sm-1">
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+  {% endif %}
